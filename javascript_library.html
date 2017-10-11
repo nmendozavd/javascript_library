@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Javascript Library</title>
+  </head>
+  <body>
+    <script type="text/javascript">
+    var _ = {
+   map: function(arr, callback) {
+     var result = [];
+     for( var i = 0; i < arr.length; i++){
+       result.push(callback(arr[i]));
+     }
+     return result;
+   },
+   reduce: function(arr, callback, startval) {
+     if (!startval) {
+        var memo = arr[0];
+        var startidx = 1;
+     }else{
+      var memo = startval;
+      var startidx = 0;
+    }
+     for( var i = startidx; i < arr.length; i++){
+       memo = callback(memo, arr[i]);
+     }
+     return memo;
+   },
+   find: function(arr, callback) {
+     for (var i = 0; i < arr.length; i++){
+       if (callback(arr[i])){
+         return arr[i];
+       }
+     }
+
+   },
+   filter: function(arr, callback) {
+     var result = [];
+     for( var i = 0; i < arr.length; i++){
+       if( callback(arr[i])){
+         result.push(arr[i]);
+       }
+
+     }
+     return result;
+   },
+   reject: function(arr, callback) {
+     var wrong = [];
+     for( var i = 0; i < arr.length; i++){
+       if( !callback(arr[i])){
+         wrong.push(arr[i]);
+       }
+
+     }
+     return wrong;
+   }
+}
+// you just created a library with 5 methods!
+
+var evens = _.filter([1, 2, 3, 4, 5, 6], function(num){ return num % 2 == 0; });
+console.log(evens); // if things are working right, this will return [2,4,6].
+
+var maps = _.map([1, 2, 3], function(num){ return num * 3; });
+console.log(maps);
+
+var sum = _.reduce([1, 4, 3], function(memo, num){ return memo * num; });
+console.log(sum);
+
+var correct = _.find([1, 2, 3, 4, 5, 6], function(num){ return num % 2 == 0; });
+console.log(correct);
+
+var wrong = _.reject([1, 2, 3, 4, 5, 6], function(num){ return num % 2 == 0; });
+console.log(wrong);
+
+    </script>
+
+  </body>
+</html>
